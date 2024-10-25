@@ -9,11 +9,21 @@ public class Timer : MonoBehaviour
     public TextMeshProUGUI TimerText;
     public float elapsedTime = 60;
     public float counter = 60;
-    
+    float timer = 1f;
+    public float roundTimer = 60f;
+    public AudioClip TimerTick;
+    public AudioSource AudioSource;
+
+
+    void Start()
+    {
+        AudioSource = GetComponent<AudioSource>();
+
+    }
     void Update()
     {
         CountDownTimer();
-
+        PlaySound();
     }
 
     void CountDownTimer()
@@ -34,5 +44,17 @@ public class Timer : MonoBehaviour
             SceneManager.LoadScene("GameOver");
 
         }
+    }
+    
+    void TickSound()
+    {
+        InvokeRepeating("TimerTick", 0.001f, 2f);        
+    }
+
+    void PlaySound()
+    {
+        AudioSource.clip = TimerTick;
+        AudioSource.Play();
+
     }
 }
